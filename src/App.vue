@@ -4,6 +4,7 @@
     <!-- <show-blogs></show-blogs> -->
     <BlogHeader></BlogHeader>
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -11,7 +12,7 @@
 import AddBlog from './components/AddBlog'
 import ShowBlogs from './components/ShowBlogs'
 import BlogHeader from './components/BlogHeader'
-
+import Footer from './components/Footer'
 import '../static/css/main.css'
 
 export default {
@@ -19,7 +20,8 @@ export default {
   components: {
     AddBlog,
     ShowBlogs,
-    BlogHeader
+    BlogHeader,
+    Footer
   }
 }
 </script>

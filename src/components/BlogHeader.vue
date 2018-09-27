@@ -2,18 +2,18 @@
  <header>
       <nav>
         <ul class="nav-li-left">
-          <li class="active"><router-link to="/" ><span class="fa fa-home "></span>首页</router-link></li>
+          <li class=""><router-link to="/"  exact><span class="fa fa-home "></span>首页</router-link></li>
           <li><a href="content.html"><span class="fa-align-right"></span>分类</a></li>
-          <li><router-link to="/add"><span class="fa-pencil-square-o"></span>发布</router-link></li>
+          <li><router-link to="/add" exact><span class="fa-pencil-square-o"></span>发布</router-link></li>
           <li><a href=""><span class="fa-user"></span>关于</a></li>
 
         </ul>
-       <div class="nav-search">
+       <!-- <div class="nav-search">
           <label for="search"><span class="fa-search fa-inverse "></span></label>
           <input type="text" name="search" id="search" v-model="search">
           <input type="button" name="search-bt" id="search-bt" value="搜索">
           <a  class="login-main" id="login-main">登录</a>
-        </div>
+        </div> -->
           
 <!--         <ul class="nav-li-right">
           <li ><a href="">退出</a></li>
@@ -34,4 +34,9 @@
 		name:'BlogHeader'
 	}
 </script>
-<style type="text/css"></style>
+<style >
+	.router-link-active{
+	background-color: #666;
+    border-radius: 10px;
+	}
+</style>

@@ -16,7 +16,14 @@
       </article>
     </div>   -->
 
+<div class="nav-search">
+          <label for="search"><span class="fa-search fa-inverse "></span></label>
+          <input type="text" name="search" id="search" v-model="search">
+          <input type="button" name="search-bt" id="search-bt" value="搜索">
+          <!-- <a  class="login-main" id="login-main">登录</a> -->
+        </div>
   
+
  <form action="#" class="login_form">
     <div class="container-1" >
 <div>
@@ -147,22 +154,25 @@
 
       </article> 
        <article v-for="blog in filteredBlogs" id="show-blogs">
-        <p class="article-title">{{blog.title}}</p>
+        <router-link v-bind:to ="'/blog/' + blog.id"><p class="article-title">{{blog.title}}</p></router-link>
         <p class="article-content">
-          {{blog.body }}
+          {{blog.content }}
         </p>
+        <div class="xinxi">
         <p class="article-times">
-          <small>{{blog.id}}阅读</small>
+          <small>阅读</small>
           <small>作者：USER</small>
           <small>9月10日</small>
+          <small v-for="i in blog.categories">{{i}}</small>
         </p>
         
 <button type="button" id="content-button">阅读全文</button>
+</div>
 <hr>
       </article> 
      
     </section>
-     <section class="Page">
+     <!-- <section class="Page">
       <ul class="pagination">
         <li><a href="">«</a></li>
         <li><a href="" class="active">1</a></li>
@@ -172,16 +182,18 @@
         <li><a href="">5</a></li>
         <li><a href="">»</a></li>
       </ul>
-     </section>
+     </section> -->
     <section class="section-two">
       <div class="artucle-pre">
         <div class="img-section">
        <img src="../assets/img/banner2.jpg" alt="">
         </div>
         <div class="text-section">
-          <h2>又一个标题</h2>
-          <p>
-            ironment, and build a future in which humans live in harmony with nature.WWF's mission is to stop the degradation of our planet's natural environment, and build a future in which humans live in harmony with nature.environment, and build a future in which humans live in harmony with nature.WWF's mission is to stop the degradation of our planet'sdegradation of our planet's natural environment, and build a f
+          <h2>Markdown方式来写文章的Vue插件</h2>
+          <p>cdn地址:marked;
+            这个是用来解析marked成html的
+            然后再来一个：hightlightjs;
+            这个是用来给代码上色的
           </p>
         </div>
       </div>
@@ -202,7 +214,7 @@
   <div id="topAnchor"><a href="#first-section" style="position:fixed;right:10%;bottom:0;color:#111;"><span class="fa-arrow-circle-up fa-3x "></span></a></div>
     
   
-  <footer>
+  <!-- <footer>
     <ul class="share-group">
       <li><a href=""><i class="fa fa-envelope-o fa-inverse fa-fw fa-2x"></i></a></li>
       <li><a href=""><i class="fa fa-github fa-2x"></i></a></li>
@@ -213,7 +225,7 @@
     <div class="copy">
       &copy Blog
     </div>
-  </footer>
+  </footer> -->
   </div> 
 </template>
 
@@ -228,11 +240,22 @@ export default {
   }
  },
  created(){
-  this.$http.get('./../static/posts.json')
+  this.$http.get('https://blog-demo-5478d.firebaseio.com/posts.json')
   .then(function(data){
+    return data.json();
     // console.log(data);
-    this.blogs=data.body.slice(0,6);
+    // this.blogs=data.body.slice(0,6);
     // console.log(this.blogs);
+  })
+  .then(function(data){
+    var blogsArray=[];
+    for(let key in data){
+      console.log(key);
+      console.log(data[key]);
+      data[key].id=key;
+      blogsArray.push(data[key])
+    }
+    this.blogs=blogsArray;
   })
  },
  computed:{
@@ -249,15 +272,14 @@ export default {
         }else {
           $("#show-blogs-hideen").hide();
           return filtered;
-        }
-        
+        }   
   }
  }
 }
 
 </script>
 
-<style>
+<style scoped> 
 @import './../static/css/main.css'
 
 #show-blog{
@@ -270,5 +292,10 @@ export default {
   -webkit-box-sizing:border-box;
   background: #eee;
 }
-
+.nav-search{
+  z-index: 11;
+  position: fixed;
+  top: 0;
+  right:3%;
+}
 </style>
